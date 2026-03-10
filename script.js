@@ -33,7 +33,7 @@ function resetTimer() {
     
     // הפעלת טיימר רק אם אנחנו לא בדף הנחיתה
     if (!window.location.pathname.includes("index.html") && window.location.pathname !== "/") {
-        idleTimer = setTimeout(returnToSplash, 10000); // 10 שניות לבדיקה
+        idleTimer = setTimeout(returnToSplash, 30000); // 30 שניות לבדיקה
     }
 }
 
