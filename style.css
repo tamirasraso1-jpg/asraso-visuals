@@ -1,0 +1,216 @@
+/* אפס את כל המרווחים וה-padding כדי להתחיל עם בסיס נקי */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* מבטיח שהמידות כוללות גם את המסגרת */
+}
+
+/* עיצוב כללי של גוף הדף */
+body {
+    background-color: #121212; /* שחור עמוק שמתאים לאתרי צילום */
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    direction: rtl; /* כיוון כתיבה מימין לשמאל לעברית */
+}
+
+/* עיצוב הכותרת הראשית של האתר */
+.gallery-container {
+    display: flex;
+    flex-direction: column; /* סידור אנכי כמו שביקשת */
+    align-items: center;
+    gap: 30px; /* רווח בין התמונות */
+    padding: 40px 20px;
+}
+
+/* עיצוב הכרטיסייה של כל קטגוריה */
+.category-card {
+    width: 100%; /* תופס את רוב רוחב המסך */
+    max-width: 1000px; /* מגביל את הרווח במסכים גדולים */
+    background-color: #222;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* עיצוב המיכל של התמונה כדי לאפשר שכבת Overlay מעליה */
+.image-wrapper {
+    position: relative; /* חובה כדי שה-overlay יתמקם מעל התמונה */
+    width: 100%;
+    height: 400px; /* גובה קבוע לכל התמונות ליצירת סדר */
+}
+
+/* עיצוב התמונה בתוך הכרטיסייה */
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* מבטיח שהתמונה תמלא את כל השטח בלי להתעוות */
+    display: block;
+}
+
+/* השכבה שמופיעה ב-Hover */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* רקע שחור חצי שקוף */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* נסתר כברירת מחדל - מה שביקשת! */
+    transition: opacity 0.4s ease; /* אנימציה חלקה של הופעה */
+}
+
+/* הצגת הכותרת בזמן רחיפה */
+.category-card:hover .overlay {
+    opacity: 1; /* השכבה הופכת לנראית כשעומדים על הכרטיסייה */
+}
+
+/* עיצוב הכותרת בתוך ה-Overlay */
+.overlay h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* אפקט קטן לכרטיסייה כולה */
+.category-card:hover {
+    transform: translateY(-5px); /* קפיצה קטנה למעלה בנגיעה */
+}
+
+/* --- דף נחיתה (Splash Screen) --- */
+
+#splash-screen {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-color: transparent; /* שקיפות כדי לראות את הווידאו שמאחור */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+/* הסרטון שרץ ברקע */
+#bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1; /* שולח את הווידאו מאחורי השכבה השקופה של ה-splash */
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    filter: brightness(45%);
+    display: block !important;
+    opacity: 1 !important;
+    pointer-events: none; /* מונע מהווידאו לחסום לחיצות */
+}
+
+/* עיצוב הלוגו הנושם */
+#main-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8vw; 
+    font-weight: 900;
+    letter-spacing: 20px;
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: breathe 8s infinite ease-in-out;
+}
+
+#main-logo span {
+    font-weight: 100;
+    opacity: 0.6;
+    letter-spacing: 15px;
+}
+
+/* טקסט ההנחיה למטה */
+.enter-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    letter-spacing: 5px;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+}
+
+/* אנימציית נשימה ללוגו */
+@keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* המצב שה-JS מוסיף בלחיצה למעבר דף */
+#splash-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.inner-page {
+    padding: 20px;
+    background-color: #000;
+}
+
+.category-header {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.category-header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+/* מבנה Masonry - פסיפס תמונות */
+.masonry-gallery {
+    column-count: 3; /* 3 עמודות במסך רחב */
+    column-gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    break-inside: avoid;
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gallery-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05); /* זום עדין במעבר עכבר */
+}
+
+/* כפתור חזרה */
+.back-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    z-index: 100;
+    background: rgba(255,255,255,0.1);
+    padding: 10px 20px;
+    border-radius: 30px;
+}
