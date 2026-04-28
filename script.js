@@ -7,7 +7,7 @@ function goToHome() {
         
         setTimeout(() => {
             window.location.href = "home.html";
-        }, 1000);
+        }, 10000);
     }
 }
 
