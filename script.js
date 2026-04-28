@@ -19,7 +19,7 @@ function returnToSplash() {
         container.style.transition = 'opacity 1s ease-in-out';
         setTimeout(() => {
             window.location.href = "index.html";
-        }, 1000);
+        }, 10000);
     } else {
         window.location.href = "index.html";
     }
@@ -33,7 +33,7 @@ function resetTimer() {
     
     // הפעלת טיימר רק אם אנחנו לא בדף הנחיתה
     if (!window.location.pathname.includes("index.html") && window.location.pathname !== "/") {
-        idleTimer = setTimeout(returnToSplash, 30000); // 30 שניות לבדיקה
+        idleTimer = setTimeout(returnToSplash, 100000); // 1 דקה  לבדיקה
     }
 }
 
