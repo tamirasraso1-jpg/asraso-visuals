@@ -17,39 +17,58 @@ body {
 /* עיצוב הכותרת הראשית של האתר */
 .gallery-container {
     display: flex;
-    flex-direction: column; /* סידור אנכי כמו שביקשת */
+    flex-direction: column; /* סידור אנכי */
     align-items: center;
-    gap: 30px; /* רווח בין התמונות */
     padding: 40px 20px;
 }
 
-/* עיצוב הכרטיסייה של כל קטגוריה */
+/* --------------------------------------------------- */
+/* התיקון לכרום וספארי - עמוד הבית (כרטיסיות הקטגוריה) */
+/* --------------------------------------------------- */
+
+/* 1. הקישור עצמו - חובה כדי שכרום יבין את גבולות הקופסה */
+.category-link {
+    display: block;
+    width: 100%;
+    max-width: 1000px; /* ממרכז ומגביל רוחב */
+    text-decoration: none;
+    margin-bottom: 30px; /* הרווח בין התמונות */
+}
+
+/* 2. הכרטיסייה - כאן יושב הגובה שקובע הכל */
 .category-card {
-    width: 100%; /* תופס את רוב רוחב המסך */
-    max-width: 1000px; /* מגביל את הרווח במסכים גדולים */
+    position: relative; /* קריטי למבנה */
+    width: 100%;
+    height: 400px; /* גובה קבוע לכל התמונות ליצירת סדר */
     background-color: #222;
     border-radius: 15px;
-    overflow: hidden;
+    overflow: hidden; /* חותך הכל לפי הפינות העגולות */
+    -webkit-mask-image: -webkit-radial-gradient(white, black); /* תיקון פינות עגולות בכרום */
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-/* עיצוב המיכל של התמונה כדי לאפשר שכבת Overlay מעליה */
+/* 3. עוטף התמונה */
 .image-wrapper {
-    position: relative; /* חובה כדי שה-overlay יתמקם מעל התמונה */
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 400px; /* גובה קבוע לכל התמונות ליצירת סדר */
+    height: 100%;
 }
 
-/* עיצוב התמונה בתוך הכרטיסייה */
+/* 4. התמונה בתוך הכרטיסייה - מיקום מוחלט מונע קריסה */
 .image-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover; /* מבטיח שהתמונה תמלא את כל השטח בלי להתעוות */
     display: block;
 }
 
-/* השכבה שמופיעה ב-Hover */
+/* 5. השכבה שמופיעה ב-Hover */
 .overlay {
     position: absolute;
     top: 0;
@@ -60,13 +79,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0; /* נסתר כברירת מחדל - מה שביקשת! */
+    opacity: 0; /* נסתר כברירת מחדל */
     transition: opacity 0.4s ease; /* אנימציה חלקה של הופעה */
+    z-index: 2; /* חובה מעל התמונה */
 }
 
-/* הצגת הכותרת בזמן רחיפה */
+/* הצגת השכבה והכותרת בזמן רחיפה עם העכבר */
 .category-card:hover .overlay {
-    opacity: 1; /* השכבה הופכת לנראית כשעומדים על הכרטיסייה */
+    opacity: 1; 
 }
 
 /* עיצוב הכותרת בתוך ה-Overlay */
@@ -75,20 +95,23 @@ body {
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
+    margin: 0;
 }
 
-/* אפקט קטן לכרטיסייה כולה */
+/* אפקט קטן לכרטיסייה כולה (קפיצה למעלה) */
 .category-card:hover {
-    transform: translateY(-5px); /* קפיצה קטנה למעלה בנגיעה */
+    transform: translateY(-5px); 
 }
 
+/* --------------------------------------------------- */
 /* --- דף נחיתה (Splash Screen) --- */
+/* --------------------------------------------------- */
 
 #splash-screen {
     position: relative;
     height: 100vh;
     width: 100%;
-    background-color: transparent; /* שקיפות כדי לראות את הווידאו שמאחור */
+    background-color: transparent; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -109,13 +132,13 @@ body {
     min-height: 100%;
     width: auto;
     height: auto;
-    z-index: -1; /* שולח את הווידאו מאחורי השכבה השקופה של ה-splash */
+    z-index: -1; 
     transform: translate(-50%, -50%);
     object-fit: cover;
     filter: brightness(45%);
     display: block !important;
     opacity: 1 !important;
-    pointer-events: none; /* מונע מהווידאו לחסום לחיצות */
+    pointer-events: none; 
 }
 
 /* עיצוב הלוגו הנושם */
@@ -158,6 +181,10 @@ body {
     pointer-events: none;
 }
 
+/* --------------------------------------------------- */
+/* --- דפי הגלריות הפנימיים (פסיפס) --- */
+/* --------------------------------------------------- */
+
 .inner-page {
     padding: 20px;
     background-color: #000;
@@ -177,27 +204,30 @@ body {
 
 /* מבנה Masonry - פסיפס תמונות */
 .masonry-gallery {
-    column-count: 3; /* 3 עמודות במסך רחב */
+    column-count: 3; 
     column-gap: 15px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* הקוד המדויק מהתמונה שלך - לא נגעתי בערכים */
+/* הקוד המדויק לגלריה הפנימית */
 .gallery-item {
     break-inside: avoid;
     margin-bottom: 15px;
     overflow: hidden;
     border-radius: 8px;
+    position: relative; /* הוסף רק למקרה חירום */
 }
 
-.gallery-item img {
+.gallery-item img,
+.gallery-item video {
     width: 100%;
     display: block;
     transition: transform 0.5s ease;
 }
 
-.gallery-item img:hover {
+.gallery-item img:hover,
+.gallery-item video:hover {
     transform: scale(1.05); /* זום עדין במעבר עכבר */
 }
 
@@ -214,14 +244,4 @@ body {
     background: rgba(255,255,255,0.1);
     padding: 10px 20px;
     border-radius: 30px;
-}
-
-/* הגדרות אחידות לכל התמונות בגלריה */
-.masonry-gallery img, 
-.gallery-item img {
-    width: 100%;        /* התמונה תמיד תתפוס את כל רוחב העמודה שלה */
-    height: 100%;       /* מאלץ את התמונה למלא את הגובה */
-    max-height: 500px;  /* מונע מתמונות לאורך להיות ענקיות - תוכל לשנות את המספר */
-    object-fit: cover;  /* הקסם: חותך את התמונה בצורה חכמה במקום למעוך אותה */
-    display: block;
 }
