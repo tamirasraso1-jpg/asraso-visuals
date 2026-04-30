@@ -52,3 +52,23 @@ window.addEventListener('load', () => {
 });
 
 resetTimer();
+
+// חסימת קליק ימני על כל האתר
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+}, false);
+
+// חסימת גרירת תמונות (מונע מאנשים לגרור תמונה לשולחן העבודה)
+document.addEventListener('dragstart', function(e) {
+    if (e.target.nodeName === 'IMG') {
+        e.preventDefault();
+    }
+}, false);
+
+// חסימת קיצורי מקלדת נפוצים לשמירה (כמו Ctrl+S או Cmd+S)
+document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        alert('השמירה חסומה להגנה על זכויות יוצרים');
+    }
+}, false);
