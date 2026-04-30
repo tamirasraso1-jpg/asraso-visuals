@@ -245,3 +245,21 @@ body {
     padding: 10px 20px;
     border-radius: 30px;
 }
+
+/* מונע בחירה של טקסט ותמונות בכל האתר */
+body {
+    -webkit-user-select: none;  /* ספארי */
+    -ms-user-select: none;      /* אינטרנט אקספלורר */
+    user-select: none;          /* כרום ופיירפוקס */
+}
+
+/* מונע ספציפית מהתמונות להגיב למגע ארוך בטלפונים (שפותח תפריט שמירה) */
+img {
+    -webkit-touch-callout: none;
+    pointer-events: none; /* זה יהפוך את התמונה ל"רוח" - אי אפשר ללחוץ עליה בכלל */
+}
+
+/* אם יש לך קישורים על תמונות (כמו בדף הבית), אל תשתמש ב-pointer-events: none על הקישור עצמו */
+.category-card img {
+    pointer-events: none;
+}
